@@ -5,7 +5,7 @@
 1. Create virtual environment with Python 3.7+
 2. Run following commands:
 ```
-git clone https://github.com/davidtw999/BertDA.git
+git clone https://github.com/bertDA/BertDA.git
 cd learningFeedback
 pip install -r requirements.txt
 ```
