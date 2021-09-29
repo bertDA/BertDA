@@ -16,7 +16,6 @@ def run_test(model_dir):
     train_args.model_name_or_path = model_dir
     seedNum = model_dir.split('models/')[1].split('/')[0]
     model, tokenizer, _, _ = setup.load_model(train_args)
-    # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_task_names = ("mnli", "mnli-mm") if train_args.task_name == "mnli" else (train_args.task_name,)
 
     for eval_task in eval_task_names:

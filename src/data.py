@@ -99,8 +99,7 @@ for task in glue_processors:
 
 class flProcessor(SentenceDataProcessor):
     def get_labels(self):
-        labels = ['0','1']
-        # labels = ['RS', 'S', 'Q', 'A', 'PF', 'ACK', 'RF', 'NF', 'C', 'H', 'DIR', 'RC', 'LF']
+        labels = ['RS', 'S', 'Q', 'A', 'PF', 'ACK', 'RF', 'NF', 'C', 'H', 'DIR', 'RC', 'LF']
         # labels = ['A', 'ACK', 'C', 'DIR', 'H', 'LF', 'NF', 'PF', 'Q', 'RC', 'RF', 'S']
 
         return labels

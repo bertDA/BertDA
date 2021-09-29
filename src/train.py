@@ -225,7 +225,7 @@ def evaluate(args, model, tokenizer, prefix=""):
         eval_sampler = SequentialSampler(eval_dataset)
         eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size)
 
-        # multi-gpu eval
+        # multi-gpu
         if args.n_gpu > 1 and not isinstance(model, torch.nn.DataParallel):
             model = torch.nn.DataParallel(model)
 
@@ -317,7 +317,7 @@ def load_and_cache_examples(args, task, tokenizer, evaluate=False, test=False):
         logger.info("Creating features from dataset file at %s", args.data_dir)
         label_list = processor.get_labels()
         if task in ["mnli", "mnli-mm"] and args.model_type in ["roberta", "xlmroberta"]:
-            # HACK(label indices are swapped in RoBERTa pretrained model)
+
             label_list[1], label_list[2] = label_list[2], label_list[1]
         if test:
             examples = processor.get_test_examples(args.data_dir)

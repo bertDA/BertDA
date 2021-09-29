@@ -72,25 +72,7 @@ def get_args():
         type=str,
         required=True,
     )
-    parser.add_argument(
-        "--model_name_or_path",
-        default=None,
-        type=str,
-        required=True,
-    )
-    parser.add_argument("--base_model",
-        type=str,
-        required=True,
-        help="The base model (for active learning experiments) name or path for loading cached data"
-    )
 
-    parser.add_argument(
-        "--task_name",
-        default=None,
-        type=str,
-        required=True,
-        help="The name of the task to train selected in the list: " + ", ".join(processors.keys()),
-    )
     parser.add_argument(
         "--output_dir",
         default=None,
@@ -111,18 +93,41 @@ def get_args():
     parser.add_argument(
         "--config_name", default="", type=str, help="Pretrained config name or path if not the same as model_name",
     )
+
+    parser.add_argument(
+        "--model_name_or_path",
+        default=None,
+        type=str,
+        required=True,
+    )
+    parser.add_argument("--base_model",
+        type=str,
+        required=True,
+        help="The base model (for active learning experiments) name or path for loading cached data"
+    )
+
+    parser.add_argument(
+        "--task_name",
+        default=None,
+        type=str,
+        required=True,
+        help="The name of the task to train selected in the list: " + ", ".join(processors.keys()),
+    )
+
     parser.add_argument(
         "--tokenizer_name",
         default="",
         type=str,
         help="Pretrained tokenizer name or path if not the same as model_name",
     )
+
     parser.add_argument(
         "--cache_dir",
         default="",
         type=str,
         help="Where do you want to store the pre-trained models downloaded from s3",
     )
+
     parser.add_argument(
         "--max_seq_length",
         default=128,
@@ -167,7 +172,7 @@ def get_args():
         help="If > 0: set total number of training steps to perform. Override num_train_epochs.",
     )
     parser.add_argument("--warmup_steps", default=0, type=int, help="Linear warmup over warmup_steps.")
-
+    parser.add_argument("--local_rank", type=int, default=-1, help="For distributed training: local_rank")
     parser.add_argument("--logging_steps", type=int, default=1000, help="Log every X updates steps.")
     parser.add_argument("--save_steps", type=int, default=1000, help="Save checkpoint every X updates steps.")
     parser.add_argument(
@@ -183,7 +188,6 @@ def get_args():
         "--overwrite_cache", action="store_true", help="Overwrite the cached training and evaluation sets",
     )
     parser.add_argument("--seed", type=int, default=42, help="random seed for initialization")
-
     parser.add_argument(
         "--fp16",
         action="store_true",
@@ -196,23 +200,8 @@ def get_args():
         help="For fp16: Apex AMP optimization level selected in ['O0', 'O1', 'O2', and 'O3']."
         "See details at https://nvidia.github.io/apex/amp.html",
     )
-    parser.add_argument("--local_rank", type=int, default=-1, help="For distributed training: local_rank")
-    parser.add_argument("--server_ip", type=str, default="", help="For distant debugging.")
-    parser.add_argument("--server_port", type=str, default="", help="For distant debugging.")
 
-    parser.add_argument(
-        "--analyze", default=None, type=str, help="Path to CSV which will contain word-context analysis"
-    )
-    # Additional arguments for language modeling
-    parser.add_argument(
-        "--should_continue", action="store_true", help="Whether to continue from latest checkpoint in output_dir"
-    )
-    parser.add_argument(
-        "--mlm", default=True, type=bool, help="Train with masked-language modeling loss instead of language modeling."
-    )
-    parser.add_argument(
-        "--mlm_probability", type=float, default=0.15, help="Ratio of tokens to mask for masked language modeling loss"
-    )
+
     parser.add_argument(
         "--block_size",
         default=-1,
